@@ -154,12 +154,15 @@ def main():
                     .replace(",", ".")
                     .strip()
                 )
-                business.reviews_count = int(
+                try:
+                   business.reviews_count = int(
                     listing.locator(reviews_span_xpath)
                     .get_attribute("aria-label")
                     .split()[2]
                     .strip()
                 )
+                except:
+                    business.reviews_count=0
             else:
                 business.reviews_average = ""
                 business.reviews_count = ""
