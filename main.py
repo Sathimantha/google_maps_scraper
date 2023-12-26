@@ -173,6 +173,7 @@ def main():
             
             if listing.locator(maps_url_xpath).count() > 0:
                 business.maps_url = listing.locator(maps_url_xpath).get_attribute("href")
+                print(business.maps_url+"\n")
             else:
                 business.maps_url = ""
 
