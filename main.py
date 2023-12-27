@@ -121,14 +121,15 @@ def main():
         # scraping
         for listing in listings:
             listing.click()
-            page.wait_for_timeout(5000)
+            page.wait_for_timeout(3000)
 
             name_xpath = '//div[contains(@class, "fontHeadlineSmall")]'
             address_xpath = '//button[@data-item-id="address"]//div[contains(@class, "fontBodyMedium")]'
             website_xpath = '//a[@data-item-id="authority"]//div[contains(@class, "fontBodyMedium")]'
             phone_number_xpath = '//button[contains(@data-item-id, "phone:tel:")]//div[contains(@class, "fontBodyMedium")]'
         #    reviews_span_xpath = '//span[@role="img"]'
-            maps_url_xpath = '//a[contains(@href, "https://www.google.com/maps/place")]'
+        #    maps_url_xpath = '//a[contains(@href, "https://www.google.com/maps/place")]'
+
 
 
 
@@ -171,11 +172,12 @@ def main():
             #    business.reviews_average = ""
             #    business.reviews_count = ""
             
-            if listing.locator(maps_url_xpath).count() > 0:
-                business.maps_url = listing.locator(maps_url_xpath).get_attribute("href")
-                print(business.maps_url+"\n")
+            maps_url_element = listing.locator('a[href*="https://www.google.com/maps/place"]')
+            if maps_url_element.is_visible():
+                business.maps_url = maps_url_element.get_attribute("href")
             else:
                 business.maps_url = ""
+
 
             business_list.business_list.append(business)
 
