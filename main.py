@@ -123,7 +123,7 @@ def main():
         # scraping
         for listing in listings:
             listing.click()
-            page.wait_for_timeout(500)
+            page.wait_for_timeout(4000)
 
             name_xpath = '//div[contains(@class, "fontHeadlineSmall")]'
             address_xpath = '//button[@data-item-id="address"]//div[contains(@class, "fontBodyMedium")]'
