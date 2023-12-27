@@ -6,7 +6,7 @@ from dataclasses import dataclass, asdict, field
 import pandas as pd
 import argparse
 from pathlib import Path
-
+import sys
 
 @dataclass
 class Business:
@@ -117,11 +117,13 @@ def main():
                     )
 
         business_list = BusinessList()
+        length=str(len(listings))
+        processed_listings_count = 0
 
         # scraping
         for listing in listings:
             listing.click()
-            page.wait_for_timeout(3000)
+            page.wait_for_timeout(500)
 
             name_xpath = '//div[contains(@class, "fontHeadlineSmall")]'
             address_xpath = '//button[@data-item-id="address"]//div[contains(@class, "fontBodyMedium")]'
@@ -180,11 +182,16 @@ def main():
 
 
             business_list.business_list.append(business)
+            processed_listings_count += 1
+            print("Processed "+str(processed_listings_count)+" of "+length)
+            sys.stdout.write("\033[F")
+                
 
         # saving to both excel and csv just to showcase the features.
+        
         business_list.save_to_excel(search_for,directory)
         #business_list.save_to_csv("google_maps_data")
-
+        print("Completed")
         browser.close()
 
 
